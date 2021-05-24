@@ -2,6 +2,7 @@ import Router from 'express'
 import {check, validationResult} from "express-validator"
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import config from 'config'
 import fileServices from "../services/file.services.js";
 import File from '../models/File.js'
@@ -38,6 +39,41 @@ router.post('/register',
             await fileServices.createDir(new File({name: '', user: user.id}))
 
             return res.json({message: 'Пользователь зарегистрирован'})
+        } catch (e) {
+            console.log(e.message)
+            return res.status(400).json({message: 'Что-то пошло не так'})
+        }
+
+    })
+		
+router.post('/login',
+    async (req, res) => {
+        try {
+            const {email, password} = req.body
+
+            const user = await User.findOne({email})
+            if (!user) {
+                return res.status(404).json({message: 'Неверный логин или пароль'})
+            }
+
+            const isPassValid = await bcrypt.compare(password, user.password)
+            if (!isPassValid) {
+                return res.status(400).json({message: 'Неверный логин или пароль'})
+            }
+
+            const token = jwt.sign({userId: user.id}, config.get('jwtSecret'), {expiresIn: '1h'})
+
+            return res.json({
+                message: 'Успешная авторизация',
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    diskSpace: user.diskSpace,
+                    usedSpace: user.usedSpace,
+                    avatar: user.avatar
+                }
+            })
         } catch (e) {
             console.log(e.message)
             return res.status(400).json({message: 'Что-то пошло не так'})
