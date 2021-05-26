@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import config from 'config'
+import authMiddleware from "../middleware/auth.middleware.js";
 import fileServices from "../services/file.services.js";
 import File from '../models/File.js'
 
