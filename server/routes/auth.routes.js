@@ -81,5 +81,34 @@ router.post('/login',
         }
 
     })
+	
+router.get('/auth', authMiddleware,
+    async (req, res) => {
+        try {
+
+            const user = await User.findOne({_id: req.user.userId})
+            if (!user) {
+                return res.status(404).json({message: 'Что-то пошло не так'})
+            }
+
+            const token = jwt.sign({userId: user.id}, config.get('jwtSecret'), {expiresIn: '1h'})
+
+            return res.json({
+                message: 'Успешная авторизация',
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    diskSpace: user.diskSpace,
+                    usedSpace: user.usedSpace,
+                    avatar: user.avatar
+                }
+            })
+        } catch (e) {
+            console.log(e.message)
+            return res.status(400).json({message: 'Что-то пошло не так'})
+        }
+
+    })
 
 export default router
