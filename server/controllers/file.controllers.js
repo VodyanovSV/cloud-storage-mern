@@ -39,6 +39,58 @@ class FileControllers {
         }
     }
 
+    async uploadFile(req, res) {
+        try {
+
+            const file = req.files.file
+            const parent = await File.findOne({user: req.user.userId, _id: req.body.parent})
+
+            let pathFS = ''
+            if (parent) {
+                pathFS = path.join(config.get('filesPath'), req.user.userId, parent.path, file.name)
+            } else {
+                pathFS = path.join(config.get('filesPath'), req.user.userId, file.name)
+            }
+
+
+            if (fs.existsSync(pathFS)) {
+                return res.status(400).json({message: 'This file already exists'})
+            }
+
+            const user = await User.findOne({_id: req.user.userId})
+            if (user.usedSpace + file.size > user.diskSpace) {
+                return res.status(400).json({message: 'Disk have not free space'})
+            }
+            user.usedSpace += file.size
+            await user.save()
+
+            let pathDB = file.name
+            if (parent) {
+                pathDB = path.join(parent.path, file.name)
+            }
+
+            const fileDB = new File({
+                name: file.name,
+                type: file.name.split('.').pop(),
+                size: file.size,
+                path: pathDB,
+                user: req.user.userId,
+                parent: parent?._id
+            })
+            await fileDB.save()
+
+            await file.mv(pathFS)
+
+            res.json({
+                message: 'File saved successfully',
+                file: fileDB
+            })
+
+        } catch (e) {
+            console.log('Ошибка в fileControllers.uploadFile: ', e.message)
+            res.status(400).json({message: 'Upload error'})
+        }
+    }
     
 }
 
