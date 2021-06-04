@@ -91,6 +91,26 @@ class FileControllers {
             res.status(400).json({message: 'Upload error'})
         }
     }
+	
+    async uploadAvatar(req, res) {
+        try {
+
+            const file = req.files.file
+            const user = await User.findById(req.user.userId)
+
+            const fileName = uuidv4() + '.jpg'
+            file.mv(path.join(config.get('filesStatic'), fileName))
+
+            user.avatar = fileName
+            await user.save()
+
+            res.json(user)
+
+        } catch (e) {
+            console.log('Ошибка в fileControllers.uploadAvatar: ', e.message)
+            res.status(400).json({message: 'Avatar error'})
+        }
+    }
     
 }
 
