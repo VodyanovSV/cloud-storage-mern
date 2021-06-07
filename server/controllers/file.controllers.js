@@ -112,6 +112,28 @@ class FileControllers {
         }
     }
     
+    async deleteAvatar(req, res) {
+        try {
+            const user = await User.findById(req.user.userId)
+            const fileName = user.avatar
+            
+            fs.unlinkSync(path.join(config.get('filesStatic'), fileName))
+
+            user.avatar = null
+            await user.save()
+
+            res.json(user)
+
+        } catch (e) {
+            console.log('Ошибка в fileControllers.deleteAvatar: ', e.message)
+            res.status(400).json({message: 'delete avatar error'})
+        }
+    }
+	
+	
+	
+	
+	
 }
 
 export default new FileControllers()
