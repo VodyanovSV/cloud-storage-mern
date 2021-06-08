@@ -130,7 +130,30 @@ class FileControllers {
         }
     }
 	
-	
+    async getFiles(req, res) {
+        try {
+            const sort = req.query.sort
+            let files = []
+            switch (sort) {
+                case 'type':
+                    files = await File.find({user: req.user.userId, parent: req.query.parent}).sort({type: 1})
+                    break
+                case 'name':
+                    files = await File.find({user: req.user.userId, parent: req.query.parent}).sort({name: 1})
+                    break
+                case 'date':
+                    files = await File.find({user: req.user.userId, parent: req.query.parent}).sort({date: 1})
+                    break
+                default:
+                    files = await File.find({user: req.user.userId, parent: req.query.parent})
+                    break
+            }
+            res.json(files)
+        } catch (e) {
+            console.log('Ошибка в fileControllers.getFiles: ', e.message)
+            res.status(400).json({message: 'Что-то пошло не так'})
+        }
+    }	
 	
 	
 	
