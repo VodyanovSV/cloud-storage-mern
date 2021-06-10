@@ -155,6 +155,24 @@ class FileControllers {
         }
     }	
 	
+    async downloadFile(req, res) {
+        try {
+            const fileDB = await File.findOne({_id: req.query.id, user: req.user.userId})
+            const filePath = path.join(config.get('filesPath'), req.user.userId, fileDB.path)
+            if (fs.existsSync(filePath)) {
+                return res.download(filePath, fileDB.name)
+            }
+
+            return res.status(400).json({message: 'Такого файла нет'})
+
+        } catch (e) {
+            console.log('Ошибка в fileControllers.downloadFile: ', e.message)
+            res.status(400).json({message: 'Что-то пошло не так'})
+        }
+    }
+	
+	
+	
 	
 	
 }
