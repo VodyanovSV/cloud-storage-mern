@@ -29,8 +29,9 @@ class FileServices {
         }
     }
 	
-	
-	
+    getPath(file){
+        return path.join(config.get('filesPath'), file.user.toString(), file.path)
+    }
 }
 
 export default new FileServices()

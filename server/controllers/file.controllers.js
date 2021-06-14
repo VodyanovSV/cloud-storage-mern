@@ -171,7 +171,21 @@ class FileControllers {
         }
     }
 	
-	
+	async deleteFile(req, res) {
+        try {
+            const file = await File.findOne({user: req.user.userId, _id: req.query.id})
+            if (!file) {
+                return res.status(400).json({message: 'File not found'})
+            }
+            fileServices.deleteFile(file)
+
+            await file.remove()
+            return res.json({message: 'File was deleted'})
+        } catch (e) {
+            console.log('Ошибка в fileControllers.deleteFile: ', e.message)
+            res.status(400).json({message: 'Что-то пошло не так'})
+        }
+    }
 	
 	
 	
