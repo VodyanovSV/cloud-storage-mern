@@ -4,7 +4,7 @@ import fileServices from '../services/file.services.js'
 import File from '../models/File.js'
 import User from '../models/User.js'
 import config from 'config'
-
+import {v4 as uuidv4} from 'uuid'
 
 class FileControllers {
     async createDir(req, res) {
@@ -187,8 +187,17 @@ class FileControllers {
         }
     }
 	
-	
-	
+	async searchFiles(req, res) {
+        try {
+            const search = req.query.search
+            let files = await File.find({user: req.user.userId})
+            files = files.filter(file => file.name.includes(search))
+            res.json(files)
+        } catch (e) {
+            console.log('Ошибка в fileControllers.searchFiles: ', e.message)
+            res.status(400).json({message: 'Что-то пошло не так'})
+        }
+    }
 }
 
 export default new FileControllers()
