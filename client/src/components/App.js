@@ -1,5 +1,7 @@
 import './app.scss'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import Registration from "./pages/autorization/Registration";
+import Login from "./pages/autorization/Login";
 
 function App() {
 
@@ -9,6 +11,7 @@ function App() {
                 <div className="wrap">
                     <Routes>
                         <Route path={'/registration'} element={<Registration/>}/>
+						<Route path={'/login'} element={<Login/>}/>
                     </Routes>
                 </div>
             </div>
