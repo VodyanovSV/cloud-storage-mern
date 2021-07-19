@@ -1,3 +1,4 @@
+import Navbar from "./navbar/Navbar";
 import './app.scss'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Registration from "./pages/autorization/Registration";
@@ -8,6 +9,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className="app">
+				<Navbar/>
                 <div className="wrap">
                     <Routes>
                         <Route path={'/registration'} element={<Registration/>}/>
