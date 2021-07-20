@@ -1,0 +1,39 @@
+@import "../../utils/colors";
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  //background-color: white;
+
+  &__container {
+    width: 1140px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px 10px 0px;
+    box-sizing: border-box;
+  }
+
+  &__header {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__login {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  &__search{
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__avatar{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+}
