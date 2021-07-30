@@ -3,18 +3,39 @@ import './app.scss'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Registration from "./pages/autorization/Registration";
 import Login from "./pages/autorization/Login";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {authUser} from "../actions/authUser";
+import Disk from "./pages/disk/Disk";
 
 function App() {
+	const isAuth = useSelector(state => state.userReduser.isAuth)
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            dispatch(authUser())
+        }
+    }, [])
+	
     return (
         <BrowserRouter>
             <div className="app">
 				<Navbar/>
                 <div className="wrap">
-                    <Routes>
-                        <Route path={'/registration'} element={<Registration/>}/>
-						<Route path={'/login'} element={<Login/>}/>
-                    </Routes>
+                    {
+                        !isAuth ?
+                            <Routes>
+                                <Route path={'/registration'} element={<Registration/>}/>
+                                <Route path={'/login'} element={<Login/>}/>
+                                <Route path={'*'} element={<Navigate to={'/login'}/>}/>
+                            </Routes>
+                            :
+                            <Routes>
+                                <Route exact path={'/'} element={<Disk/>}/>
+                                <Route path={'*'} element={<Navigate to={'/'}/>}/>
+                            </Routes>
+                    }
                 </div>
             </div>
         </BrowserRouter>
