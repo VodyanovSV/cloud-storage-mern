@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {getFile, uploadFile} from "../../../actions/file";
+import './disk.scss'
+import FileList from "./fileList/FileList";
+
 
 const Disk = () => {
+	
+	const currentDir = useSelector(state => state.fileReduser.currentDir)
     
     return (
         <div className='disk'>
@@ -21,6 +28,7 @@ const Disk = () => {
                 <button className="view list"></button>
                 <button className="view plate"></button>
             </div>
+			<FileList/>
         </div>
     )
 };

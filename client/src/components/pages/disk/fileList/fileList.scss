@@ -1,0 +1,72 @@
+.filelist {
+  margin: 20px 0;
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 4fr repeat(4, 1fr);
+  }
+
+  .name {
+    grid-column-start: 2;
+  }
+
+  .date {
+    grid-column-start: 5;
+    justify-self: center;
+  }
+
+  .size {
+    grid-column-start: 6;
+    justify-self: center;
+  }
+
+}
+
+.filePlate {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  //.header {
+  //  display: grid;
+  //  grid-template-columns: 1fr 4fr repeat(4, 1fr);
+  //}
+  //
+  //.name {
+  //  grid-column-start: 2;
+  //}
+  //
+  //.date {
+  //  grid-column-start: 5;
+  //  justify-self: center;
+  //}
+  //
+  //.size {
+  //  grid-column-start: 6;
+  //  justify-self: center;
+  //}
+
+}
+
+.dirEmpty {
+  height: calc(100% - 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.file-enter-active {
+  animation: file-enter 5000ms forwards;
+}
+
+@keyframes file-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}

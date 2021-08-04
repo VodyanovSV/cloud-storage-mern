@@ -1,0 +1,7 @@
+export const SET_FILES = 'SET_FILES'
+export const SET_CURRENT_DIR = 'SET_CURRENT_DIR'
+export const ADD_FILE = 'ADD_FILE'
+export const PUSH_STACK_DIR = 'PUSH_STACK_DIR'
+export const POP_STACK_DIR = 'POP_STACK_DIR'
+export const DELETE_FILE = 'DELETE_FILE'
+export const SET_VIEW_FILES = 'SET_VIEW_FILES '
