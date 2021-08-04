@@ -105,3 +105,26 @@ export const uploadFile = (file, parent) => {
         }
     }
 }
+
+export const downloadFile = async (file) => {
+    try {
+        const response = await fetch(
+            `api/files/download?id=${file._id}`,
+            {
+                method: 'GET',
+                headers: {authorization: `Bearer ${localStorage.getItem('token')}`}
+            })
+        if (response.ok) {
+            const blob = await response.blob()
+            const link = document.createElement('a')
+            link.href = URL.createObjectURL(blob)
+            link.download = file.name
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+        }
+    } catch (e) {
+        console.log('Ошибка в file: ', e.message)
+        alert('Что-то пошло не так')
+    }
+}
