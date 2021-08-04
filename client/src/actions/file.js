@@ -1,10 +1,18 @@
+import axios from "axios";
 import {
-    setFilesActionCreator
+    setFilesActionCreator,
+    addFileActionCreator,
+    deleteFileActionCreator
 } from "../store/actionCreators/fileActionCreators";
 import {useSelector} from "react-redux";
+import {
+    addFileUploaderActionCreator,
+    changeFileUploaderActionCreator,
+    uploaderShowActionCreator
+} from "../store/actionCreators/uploaderActionCreators";
 import {hideActionCreator, showActionCreator} from "../store/actionCreators/appActionCreators";
 
-export const getFile = (dirId) => {
+export const getFile = (dirId, sort) => {
     return async (dispatch) => {
         try {
 
@@ -25,6 +33,35 @@ export const getFile = (dirId) => {
             alert('Что-то пошло не так')
         } finally {
             dispatch(hideActionCreator())
+        }
+    }
+}
+
+export const createDir = (dirId, dirName) => {
+    return async (dispatch) => {
+        try {
+            const url = '/api/files'
+            const method = 'POST'
+            const headers = {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+            const body = JSON.stringify({
+                name: dirName,
+                type: 'dir',
+                parent: dirId
+            })
+
+            const file = await fetch(url, {method, body, headers})
+            const data = await file.json()
+            if (data.file) {
+                dispatch(addFileActionCreator(data.file))
+            } else {
+                throw new Error('Ошибка создания файла')
+            }
+        } catch (e) {
+            console.log('Ошибка в file: ', e.message)
+            alert('Что-то пошло не так')
         }
     }
 }
