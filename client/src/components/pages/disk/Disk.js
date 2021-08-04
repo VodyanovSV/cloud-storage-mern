@@ -6,8 +6,12 @@ import FileList from "./fileList/FileList";
 
 
 const Disk = () => {
-	
+	const dispatch = useDispatch()
 	const currentDir = useSelector(state => state.fileReduser.currentDir)
+	
+	useEffect(() => {
+        dispatch(getFile(currentDir))
+    }, [currentDir])
     
     return (
         <div className='disk'>
