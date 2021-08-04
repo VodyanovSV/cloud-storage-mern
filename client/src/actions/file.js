@@ -65,3 +65,43 @@ export const createDir = (dirId, dirName) => {
         }
     }
 }
+
+export const uploadFile = (file, parent) => {
+    return async (dispatch) => {
+        try {
+            const url = `/api/files/upload`
+            // const method = 'POST'
+            const headers = {authorization: `Bearer ${localStorage.getItem('token')}`}
+            const body = new FormData()
+            body.append('file', file)
+            if (parent) {
+                body.append('parent', parent)
+            }
+
+            const uploadFile = {name: file.name, progress: 0, id: Date.now()}
+            dispatch(uploaderShowActionCreator())
+            dispatch(addFileUploaderActionCreator(uploadFile))
+
+            // const response = await fetch(url, {method, body, headers})
+            // const data = await response.json()
+            // dispatch(addFileActionCreator(data.file))
+
+            const response = await axios.post(url, body, {
+                headers,
+                onUploadProgress: progressEvent => {
+                    const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                    // console.log('total', totalLength)
+                    if (totalLength) {
+                        uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                        dispatch(changeFileUploaderActionCreator(uploadFile))
+                    }
+                }
+            })
+            const data = response.data
+            dispatch(addFileActionCreator(data.file))
+        } catch (e) {
+            console.log('Ошибка в file: ', e.message)
+            alert('Что-то пошло не так')
+        }
+    }
+}
