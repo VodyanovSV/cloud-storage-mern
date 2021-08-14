@@ -128,3 +128,26 @@ export const downloadFile = async (file) => {
         alert('Что-то пошло не так')
     }
 }
+
+export const deleteFile = (file) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(`api/files?id=${file._id}`, {
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            const data = await response.json()
+
+            dispatch(deleteFileActionCreator(file))
+
+            alert(data.message)
+
+        } catch (e) {
+            console.log('Ошибка в file: ', e.message)
+            alert('Что-то пошло не так ERR')
+        }
+    }
+}
+
