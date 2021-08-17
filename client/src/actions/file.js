@@ -151,3 +151,24 @@ export const deleteFile = (file) => {
     }
 }
 
+export const searchFile = (search) => {
+    return async (dispatch) => {
+        try {
+
+            dispatch(showActionCreator())
+
+            const url = `/api/files/search?search=${search}`
+            const method = 'GET'
+            const headers = {authorization: `Bearer ${localStorage.getItem('token')}`}
+            const files = await fetch(url, {method, headers})
+            const data = await files.json()
+            dispatch(setFilesActionCreator(data))
+        } catch (e) {
+            console.log('Ошибка в file: ', e.message)
+            alert('Что-то пошло не так')
+        } finally {
+            dispatch(hideActionCreator())
+        }
+    }
+}
+
