@@ -1,0 +1,119 @@
+@import "../../../../../utils/colors.scss";
+
+.fileInList {
+  margin: 10px 0;
+  border-bottom: solid 2px $font-color;
+  display: grid;
+  grid-template-columns: 1fr 4fr repeat(4, 1fr);
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  .file__img {
+    justify-self: center;
+  }
+
+  .file__date {
+    grid-column-start: 5;
+    justify-self: center;
+  }
+
+  .file__size {
+    grid-column-start: 6;
+    justify-self: center;
+  }
+
+  .file__btn {
+    display: none;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 22px;
+    height: 22px;
+    border: none;
+    outline: none;
+    background: no-repeat center center;
+    background-size: contain;
+  }
+
+  .file__download {
+    background-image: url("../../../../../assets/images/download.svg");
+  }
+
+  .file__delete {
+    background-image: url("../../../../../assets/images/delete.svg");
+  }
+
+  &:hover .file__btn {
+    display: block;
+  }
+
+  &:hover .file__download {
+    grid-column-start: 5;
+  }
+
+  &:hover .file__delete {
+    grid-column-start: 6;
+  }
+
+  &:hover .file__date {
+    grid-column-start: 3;
+  }
+
+
+  &:hover .file__size {
+    grid-column-start: 4;
+  }
+}
+
+.fileInPlate {
+  margin: 10px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:hover .file__btns .file__btn{
+    display: block;
+  }
+
+  .file__img {
+    width: 100px;
+  }
+
+  .file__name {
+    margin-top: 10px;
+  }
+
+  .file__btns {
+    display: flex;
+    margin-top: 10px;
+
+    .file__btn {
+      display: none;
+      cursor: pointer;
+      margin-left: 10px;
+      width: 22px;
+      height: 22px;
+      border: none;
+      outline: none;
+      background: no-repeat center center;
+      background-size: contain;
+    }
+
+    .file__download {
+      background-image: url("../../../../../assets/images/download.svg");
+    }
+
+    .file__delete {
+      background-image: url("../../../../../assets/images/delete.svg");
+    }
+  }
+}
