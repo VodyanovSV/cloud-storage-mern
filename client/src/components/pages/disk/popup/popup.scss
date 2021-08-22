@@ -1,0 +1,56 @@
+@import "../../../../utils/colors";
+
+.popup {
+
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+
+
+    .header {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    input {
+      margin: 10px 20px;
+    }
+
+    .btn {
+      border: none;
+      background-color: $font-color;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      padding: 5px 10px;
+      align-self: flex-end;
+      margin-top: 10px;
+    }
+
+    .close {
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+  }
+}
+

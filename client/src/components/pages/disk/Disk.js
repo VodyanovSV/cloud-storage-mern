@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getFile, uploadFile} from "../../../actions/file";
 import './disk.scss'
 import FileList from "./fileList/FileList";
+import Popup from "./popup/Popup";
 
 
 const Disk = () => {
@@ -15,6 +16,7 @@ const Disk = () => {
     
     return (
         <div className='disk'>
+			<Popup/>
             <div className="btns">
                 <button className="back">Назад</button>
                 <button className="create">Создать папку</button>
