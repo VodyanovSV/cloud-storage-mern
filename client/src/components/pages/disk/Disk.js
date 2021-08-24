@@ -4,6 +4,7 @@ import {getFile, uploadFile} from "../../../actions/file";
 import './disk.scss'
 import FileList from "./fileList/FileList";
 import Popup from "./popup/Popup";
+import Uploader from "./uploader/Uploader";
 
 
 const Disk = () => {
@@ -35,6 +36,7 @@ const Disk = () => {
                 <button className="view plate"></button>
             </div>
 			<FileList/>
+			<Uploader/>
         </div>
     )
 };
