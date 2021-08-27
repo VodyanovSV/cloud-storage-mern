@@ -1,0 +1,44 @@
+@import "src/utils/colors";
+
+.container {
+  background-color: $background-color;
+  padding: 10px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+
+    .title {
+      color: $font-color
+    }
+
+    .close {
+      color: $font-color;
+    }
+  }
+
+  .content {
+    width: 100%;
+    height: 15px;
+    border-radius: 7px;
+    background-color: $font-color;
+    position: relative;
+
+    .percent {
+      color: $background-color;
+      position: absolute;
+      left: 45%;
+    }
+
+    .progress {
+      background-color: $green;
+      height: 100%;
+      border-radius: 7px;
+      position: absolute;
+    }
+  }
+}
