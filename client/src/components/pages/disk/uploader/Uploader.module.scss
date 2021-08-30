@@ -1,0 +1,32 @@
+@import "src/utils/colors";
+
+.container {
+  background-color: $font-color;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+  border-radius: 10px 10px 0px 10px;
+  overflow-y: auto;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    .title {
+      color: $background-color;
+      font-size: 1.2rem;
+    }
+
+    .close {
+      color: $font-color;
+    }
+  }
+
+  .content {
+    padding: 10px;
+  }
+}
