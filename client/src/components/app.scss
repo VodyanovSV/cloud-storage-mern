@@ -1,1 +1,33 @@
+@import "../utils/colors";
+@import "../utils/reset-style";
+//@import "~materialize-css/dist/css/materialize.min.css";
+
+body {
+  background-color: $background-color;
+  color: $font-color;
+}
+
+.app {
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+}
+
+.wrap {
+  width: 1140px;
+  height: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 10px;
+  box-sizing: border-box;
+  //border: 1px solid;
+  border-radius: 5px;
+  background: white;
+}
 
